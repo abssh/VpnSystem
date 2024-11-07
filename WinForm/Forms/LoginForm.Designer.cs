@@ -89,11 +89,11 @@
             // 
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
-            label1.Font = new Font("Rubik", 9F, FontStyle.Underline);
+            label1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Underline);
             label1.ForeColor = Color.Navy;
             label1.Location = new Point(119, 122);
             label1.Name = "label1";
-            label1.Size = new Size(88, 23);
+            label1.Size = new Size(77, 18);
             label1.TabIndex = 41;
             label1.Text = "فراموشی رمز";
             // 
@@ -101,11 +101,11 @@
             // 
             llb_signup.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             llb_signup.AutoSize = true;
-            llb_signup.Font = new Font("Rubik", 9F, FontStyle.Underline);
+            llb_signup.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Underline);
             llb_signup.ForeColor = Color.Navy;
             llb_signup.Location = new Point(0, 122);
             llb_signup.Name = "llb_signup";
-            llb_signup.Size = new Size(95, 23);
+            llb_signup.Size = new Size(76, 18);
             llb_signup.TabIndex = 40;
             llb_signup.Text = "ساخت حساب";
             llb_signup.Click += llb_signup_Click;
@@ -125,7 +125,7 @@
             // 
             btn_login.AutoSize = true;
             btn_login.BackColor = Color.Navy;
-            btn_login.Font = new Font("Rubik", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_login.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_login.ForeColor = Color.White;
             btn_login.Location = new Point(174, 0);
             btn_login.Name = "btn_login";
@@ -160,22 +160,25 @@
             // 
             // txt_password
             // 
+            txt_password.BackColor = Color.White;
             txt_password.Dock = DockStyle.Top;
             txt_password.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txt_password.Location = new Point(0, 0);
             txt_password.Name = "txt_password";
-            txt_password.Size = new Size(261, 30);
+            txt_password.Size = new Size(260, 30);
             txt_password.TabIndex = 2;
+            txt_password.TextChanged += txt_password_TextChanged;
+            txt_password.KeyDown += txt_password_KeyDown;
             // 
             // lbl_password_descriptor
             // 
             lbl_password_descriptor.AutoSize = true;
             lbl_password_descriptor.Dock = DockStyle.Right;
-            lbl_password_descriptor.Font = new Font("Rubik", 10.5F);
-            lbl_password_descriptor.Location = new Point(261, 0);
+            lbl_password_descriptor.Font = new Font("Microsoft Sans Serif", 10.5F);
+            lbl_password_descriptor.Location = new Point(260, 0);
             lbl_password_descriptor.Name = "lbl_password_descriptor";
             lbl_password_descriptor.RightToLeft = RightToLeft.Yes;
-            lbl_password_descriptor.Size = new Size(75, 27);
+            lbl_password_descriptor.Size = new Size(76, 22);
             lbl_password_descriptor.TabIndex = 10;
             lbl_password_descriptor.Text = "رمز عبور:";
             // 
@@ -204,22 +207,26 @@
             // 
             // txt_username
             // 
+            txt_username.BackColor = Color.White;
             txt_username.Dock = DockStyle.Top;
             txt_username.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txt_username.ForeColor = SystemColors.WindowText;
             txt_username.Location = new Point(0, 0);
             txt_username.Name = "txt_username";
-            txt_username.Size = new Size(251, 30);
+            txt_username.Size = new Size(261, 30);
             txt_username.TabIndex = 1;
+            txt_username.TextChanged += txt_username_TextChanged;
+            txt_username.KeyDown += txt_username_KeyDown;
             // 
             // lbl_username_descriptor
             // 
             lbl_username_descriptor.AutoSize = true;
             lbl_username_descriptor.Dock = DockStyle.Right;
-            lbl_username_descriptor.Font = new Font("Rubik", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbl_username_descriptor.Location = new Point(251, 0);
+            lbl_username_descriptor.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_username_descriptor.Location = new Point(261, 0);
             lbl_username_descriptor.Name = "lbl_username_descriptor";
             lbl_username_descriptor.RightToLeft = RightToLeft.Yes;
-            lbl_username_descriptor.Size = new Size(85, 26);
+            lbl_username_descriptor.Size = new Size(75, 20);
             lbl_username_descriptor.TabIndex = 100;
             lbl_username_descriptor.Text = "نام کاربری:";
             // 

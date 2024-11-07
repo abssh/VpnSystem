@@ -25,21 +25,26 @@ namespace WinForm.Forms
 
         private void Pause()
         {
-            txt_password.Enabled = false;
-            txt_password.ForeColor = Color.Gray;
-            txt_username.Enabled = false;
-            txt_username.ForeColor = Color.Gray;
+            txt_password.ReadOnly = true;
+            txt_username.ReadOnly = true;
+            btn_login.Visible = false;
             btn_login.Enabled = false;
+            txt_password.ForeColor = Color.Gray;
+            txt_username.ForeColor = Color.Gray;
+
+            Update();
         }
 
         private void Resume()
         {
-            txt_password.Enabled = true;
-            txt_password.ForeColor = Color.Black;
-            txt_username.Enabled = true;
-            txt_username.ForeColor = Color.Black;
+            txt_password.ReadOnly = false;
+            txt_username.ReadOnly = false;
+            btn_login.Visible = true;
             btn_login.Enabled = true;
+            txt_password.ForeColor = Color.Black;
+            txt_username.ForeColor = Color.Black;
 
+            Update();
         }
 
         private void llb_signup_Click(object sender, EventArgs e)
@@ -58,6 +63,7 @@ namespace WinForm.Forms
             }
 
             Pause();
+
             (bool ok, Guid id, string msg) resp;
             using (var scope = _serviceProvider.CreateScope())
             {
@@ -73,7 +79,7 @@ namespace WinForm.Forms
 
             if (resp.ok)
             {
-                
+
                 var fm = _serviceProvider.GetRequiredService<FManger>();
                 fm.SetClientId(resp.id);
                 fm.HomeLauncher();
@@ -109,6 +115,34 @@ namespace WinForm.Forms
             {
                 Application.Exit();
                 return;
+            }
+        }
+
+        private void txt_username_TextChanged(object sender, EventArgs e)
+        {
+            lbl_username_error.Text = string.Empty;
+            lbl_login_error.Text = string.Empty;
+        }
+
+        private void txt_password_TextChanged(object sender, EventArgs e)
+        {
+            lbl_password_error.Text = string.Empty;
+            lbl_login_error.Text = string.Empty;
+        }
+
+        private void txt_username_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btn_login_Click(sender, e);
+            }
+        }
+
+        private void txt_password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btn_login_Click(sender, e);
             }
         }
     }
