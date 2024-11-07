@@ -1,12 +1,13 @@
 ﻿using DataDomain.Data.Context;
 using DataDomain.Data.entity;
 using DataDomain.Persistence.Repo.Interfaces;
+using DataDomain.Types.States;
 
 namespace DataDomain.Persistence.AppService
 {
     public interface IAuthService
     {
-        (bool ok, Guid id, string msg) LoginWithUsernameAndPassword(string username, string password);
+        (bool ok, Client? cli, StateObject state) LoginWithUsernameAndPassword(string username, string password);
     }
 
     public class AuthService : IAuthService
@@ -19,17 +20,17 @@ namespace DataDomain.Persistence.AppService
             this.clientRepo = clientRepo;
         }
 
-        public (bool ok, Guid id, string msg) LoginWithUsernameAndPassword(string username, string password)
+        public (bool ok, Client? cli, StateObject state) LoginWithUsernameAndPassword(string username, string password)
         {
             Client? cli = clientRepo.GetClientByUserName(username);
             if (cli == null) {
-                return (false, Guid.Empty, "username  not found");
+                return (false, null, BadStates.UsernameNotFound);
             }
             if (cli.Password == password)
             {
-                return (true, cli.Id, "");
+                return (true, cli, BadStates.None);
             }
-            return (false, Guid.Empty, "wrong password");
+            return (false, null, BadStates.WrongPassword);
 
         }
     }

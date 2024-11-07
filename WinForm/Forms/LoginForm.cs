@@ -1,6 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using DataDomain.Persistence.AppService;
-using WinForm.FormManger;
+using WinForm.Controllers.FormManger;
+
+using DataDomain.Data.entity;
+using DataDomain.Types.States;
+using WinForm.Controllers.AppState;
 
 namespace WinForm.Forms
 {
@@ -64,7 +68,7 @@ namespace WinForm.Forms
 
             Pause();
 
-            (bool ok, Guid id, string msg) resp;
+            (bool ok, Client? cli, StateObject state) resp;
             using (var scope = _serviceProvider.CreateScope())
             {
                 var service = scope.ServiceProvider;
@@ -75,18 +79,29 @@ namespace WinForm.Forms
                     txt_password.Text
                     );
             }
+
             Resume();
 
-            if (resp.ok)
+            if (!resp.ok)
             {
+                switch (resp.state.stateCode)
+                {
+                    case StateCode.None:
+                        break;
+                    case StateCode.UsernameNotFound:
+                        lbl_username_error.Text = resp.state.message;
+                        break;
+                    case StateCode.WrongPassword:
+                        lbl_password_error.Text = resp.state.message;
+                        break;
+                }
 
-                var fm = _serviceProvider.GetRequiredService<FManger>();
-                fm.SetClientId(resp.id);
-                fm.HomeLauncher();
+                lbl_login_error.Text = "couldn't login";
+
                 return;
             }
-
-            lbl_login_error.Text = resp.msg;
+            _serviceProvider.GetRequiredService<StateObserver>().SetClient(resp.cli);
+            _serviceProvider.GetRequiredService<FManger>().HomeLauncher();
         }
 
         private bool ValidateInput()

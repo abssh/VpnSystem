@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using WinForm.FormManger;
+using WinForm.Controllers.AppState;
+using WinForm.Controllers.FormManger;
 
 namespace WinForm.Forms
 {
@@ -27,9 +28,10 @@ namespace WinForm.Forms
 
         private void lbl_logout_Click(object sender, EventArgs e)
         {
-            var fm = _serviceProvider.GetRequiredService<FManger>();
-            fm.SetClientId(Guid.Empty);
-            fm.LoginFormLauncher();
+            _serviceProvider.GetRequiredService<StateObserver>().SetClient(null);
+            _serviceProvider.GetRequiredService<FManger>().LoginFormLauncher();
+            
+            
         }
     }
 }
