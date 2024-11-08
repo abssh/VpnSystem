@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
-using WinForm.FormManger;
+using WinForm.Controllers.FormManger;
 
 namespace WinForm.Forms
 {

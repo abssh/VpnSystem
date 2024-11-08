@@ -1,28 +1,21 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WinForm.Forms;
 
-namespace WinForm.FormManger
+namespace WinForm.Controllers.FormManger
 {
     public class FManger
     {
         private readonly IServiceProvider _serviceProvider;
-        private Guid clientId;
         internal Form currentForm;
 
         public FManger(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            
+
             currentForm = new Form();
-            clientId = Guid.Empty;
         }
 
-        public void SetClientId(Guid id)
-        {
-            clientId = id;
-        }
-
-        public void LoginFormLauncher ()
+        public void LoginFormLauncher()
         {
             LoginForm lg = _serviceProvider.GetRequiredService<LoginForm>();
             lg.Location = currentForm.Location;
@@ -57,6 +50,6 @@ namespace WinForm.FormManger
             home.Show();
         }
 
-        
+
     }
 }
