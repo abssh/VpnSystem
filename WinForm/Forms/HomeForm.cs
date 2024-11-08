@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
 using WinForm.Controllers.AppState;
 using WinForm.Controllers.FormManger;
 
@@ -30,8 +29,8 @@ namespace WinForm.Forms
         {
             _serviceProvider.GetRequiredService<StateObserver>().SetClient(null);
             _serviceProvider.GetRequiredService<FManger>().LoginFormLauncher();
-            
-            
+
+
         }
     }
 }
