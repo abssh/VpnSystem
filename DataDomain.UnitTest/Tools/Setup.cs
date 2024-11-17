@@ -1,32 +1,25 @@
 ﻿using DataDomain.Data.Context;
-using DataDomain.Persistence.Repo;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.EntityFrameworkCore;
 using DataDomain.Persistence.AppService;
-using EntityFramework.Exceptions.PostgreSQL;
+using DataDomain.Persistence.Repo;
+using EntityFramework.Exceptions.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace DataDomain
+namespace DataDomain.UnitTest.Tools
 {
-    internal class Setup
+    public class Setup
     {
-        IConfiguration config { get; }
-
-        public Setup(IConfiguration configuration)
-        {
-            config = configuration;
-        }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PGContext>(options =>
-                options.UseNpgsql(config.GetConnectionString("PGContext"))
+                options.UseSqlite("DataSource=:memory:")
                 .UseExceptionProcessor());
+
 
             services.AddScoped<DSContext, PGContext>();
             services.AddScoped<IClientRepo, ClientRepo>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUtils, Utils>();
         }
-
     }
 }

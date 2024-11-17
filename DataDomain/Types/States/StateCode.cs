@@ -4,5 +4,8 @@
         None,
         UsernameNotFound,
         WrongPassword,
+        UniqueConstraintDefault,
+        UsernameAlreadyExists,
+        EmailAlreadyExists,
     }
 }

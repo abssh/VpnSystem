@@ -77,6 +77,7 @@
             Controls.Add(panel1);
             Controls.Add(rbtn_connect_button);
             Name = "HomeForm";
+            StartPosition = FormStartPosition.Manual;
             Text = "HomeForm";
             FormClosing += HomeForm_FormClosing;
             panel1.ResumeLayout(false);

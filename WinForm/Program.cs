@@ -21,8 +21,6 @@ namespace WinForm
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    var DDSetup = new DataDomain.Setup(context.Configuration);
-                    DDSetup.ConfigureServices(services);
                     var WFSetup = new Initialize.Setup(context.Configuration);
                     WFSetup.ConfigureServices(services);
                 })

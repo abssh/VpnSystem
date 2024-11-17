@@ -50,6 +50,5 @@ namespace WinForm.Controllers.FormManger
             home.Show();
         }
 
-
     }
 }

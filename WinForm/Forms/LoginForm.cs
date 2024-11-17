@@ -74,7 +74,7 @@ namespace WinForm.Forms
                 var service = scope.ServiceProvider;
                 IAuthService authService = service.GetRequiredService<IAuthService>();
 
-                resp = authService.LoginWithUsernameAndPassword(
+                resp = authService.Login(
                     txt_username.Text,
                     txt_password.Text
                     );

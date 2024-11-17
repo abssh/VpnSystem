@@ -1,8 +1,11 @@
-﻿namespace DataDomain.Data.entity
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DataDomain.Data.entity
 {
     public class Client
     {
-        public required Guid Id { get; set; } = Guid.Empty;
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public required string UserName { get; set; }
         public required string Password { get; set; }

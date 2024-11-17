@@ -1,6 +1,4 @@
-﻿using DataDomain.Data.entity;
-using DataDomain.Persistence.AppService;
-using DataDomain.Persistence.Repo.Interfaces;
+﻿using DataDomain.Persistence.AppService;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,8 +29,8 @@ namespace DataDomain
             {
                 var services = scope.ServiceProvider;
                 IAuthService authService = services.GetRequiredService<IAuthService>();
-                var resp = authService.LoginWithUsernameAndPassword("hello1", "randomPass1");
-                Console.WriteLine(resp.ToString());
+                var resp = authService.Signup("hello1", "randomPass1", "exa@gm.com");
+                Console.WriteLine(resp.state.message);
             }
 
             Console.WriteLine("end point");
