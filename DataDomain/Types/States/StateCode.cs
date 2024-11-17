@@ -2,6 +2,7 @@
 {
     public enum StateCode{
         None,
+        UnHandled,
         UsernameNotFound,
         WrongPassword,
         UniqueConstraintDefault,

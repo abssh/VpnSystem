@@ -18,6 +18,9 @@ namespace DataDomain.Data.config
             builder
                 .HasIndex(cli => cli.UserName)
                 .IsUnique();
+            builder
+                .Property(cli => cli.IsActivated)
+                .HasDefaultValue(false);
         }
 
  
