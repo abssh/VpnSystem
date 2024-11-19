@@ -81,22 +81,87 @@ namespace DataDomain.UnitTest
             utils.AddClient("signup-test-cli1", "randomPass", "example@test.com");
 
             IAuthService authService = services.GetRequiredService<IAuthService>();
-            (bool ok, StateObject state) resp;
+            (bool ok, Client? cli, StateObject state) resp;
 
             // username constraint
             resp = authService.Signup("signup-test-cli1", "", "sample1@test.com");
             Assert.That(resp.ok, Is.False);
+            Assert.That(resp.cli, Is.Null);
             Assert.That(resp.state, Is.SameAs(BadStates.UniqueConstraintDefault));
+
+            utils.ClearChanges();
 
             // email constraint
             resp = authService.Signup("signup-test-cli2", "", "example@test.com");
             Assert.That(resp.ok, Is.False);
+            Assert.That(resp.cli, Is.Null);
             Assert.That(resp.state, Is.SameAs(BadStates.UniqueConstraintDefault));
 
+            utils.ClearChanges();
+
             // correct signup
-            resp = authService.Signup("signup-test-cli1", "", "sample1@test.com");
+            resp = authService.Signup("signup-test-cli3", "", "signup-test-sample3@test.com");
+            Assert.That(resp.ok, Is.True);
+            Assert.That(resp.cli, Is.Not.Null);
+            Assert.That(resp.state, Is.SameAs(BadStates.None));
+        }
+
+        [Test]
+        public void ActivateEmailTest()
+        {
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+
+            PGContext context = services.GetRequiredService<PGContext>();
+            context.Database.OpenConnection();
+            context.Database.EnsureCreated();
+
+            IUtils utils = services.GetRequiredService<IUtils>();
+            var cli = utils.AddClient("activate-email-cli", "randomPass", "example@test.com");
+
+            IAuthService authService = services.GetRequiredService<IAuthService>();
+            (bool ok, StateObject state) resp;
+
+            // wrong client
+            resp = authService.SendActivationEmail(Guid.NewGuid());
             Assert.That(resp.ok, Is.False);
-            Assert.That(resp.state, Is.SameAs(BadStates.UniqueConstraintDefault));
+            Assert.That(resp.state, Is.SameAs(BadStates.ClientNotFound));
+
+            utils.ClearChanges();
+
+            // correct send activation email
+            resp = authService.SendActivationEmail(cli.Id);
+            Assert.That(resp.ok, Is.False);
+            Assert.That(resp.state, Is.SameAs(BadStates.WrongSMTPConfig));
+
+            // to fast
+            resp = authService.SendActivationEmail(cli.Id);
+            Assert.That(resp.ok, Is.False);
+            Assert.That(resp.state, Is.SameAs(BadStates.TooFast));
+
+            Code? code = utils.GetCode(cli.Id);
+            if (code == null)
+            {
+                Assert.Fail("empty code");
+                return;
+            }
+
+            // wrong code
+            resp = authService.ActivateEmail(cli, "000000");
+            Assert.That(resp.ok, Is.False);
+            Assert.That(resp.state, Is.SameAs(BadStates.WrongCode));
+
+            utils.ClearChanges();
+
+            // correct code
+            resp = authService.ActivateEmail(cli, code.Value);
+            Assert.That(resp.ok, Is.True);
+            Assert.That(resp.state, Is.SameAs(BadStates.None));
+
+
+
+
+
         }
     }
 }

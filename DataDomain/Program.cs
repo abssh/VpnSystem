@@ -29,8 +29,16 @@ namespace DataDomain
             {
                 var services = scope.ServiceProvider;
                 IAuthService authService = services.GetRequiredService<IAuthService>();
-                var resp = authService.Signup("hello1", "randomPass1", "exa@gm.com");
-                Console.WriteLine(resp.state.message);
+                
+                var resp = authService.Login("abs", "randomPass");
+                if (resp.cli == null)
+                {
+                    Console.WriteLine($"{resp.state.message}");
+                    return;
+                }
+
+                //var resp2 = authService.SendActivationEmail(resp.cli.Id);
+                var resp2 = authService.ActivateEmail(resp.cli, "597154");
             }
 
             Console.WriteLine("end point");

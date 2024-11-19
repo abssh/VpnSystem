@@ -11,6 +11,6 @@ namespace DataDomain.Data.entity
         public DateTime ValidUntil { get; set; }
         public Guid ClientId { get; set; }
 
-        public required Client User { get; set; }
+        public Client User { get; set; }
     }
 }

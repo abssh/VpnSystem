@@ -11,7 +11,9 @@ namespace DataDomain.UnitTest.Tools;
 
 public interface IUtils
 {
-    public void AddClient(string userName, string password, string email);
+    public Client AddClient(string userName, string password, string email);
+    public void ClearChanges();
+    public Code? GetCode(Guid clientId);
 }
 
 public class Utils : IUtils
@@ -22,7 +24,7 @@ public class Utils : IUtils
         context = ctx;
     }
 
-    public void AddClient(string userName, string password, string email)
+    public Client AddClient(string userName, string password, string email)
     {
         Client cli = new()
         {
@@ -34,6 +36,19 @@ public class Utils : IUtils
 
         context.Clients.Add(cli);
         context.SaveChanges();
+        return cli;
 
+    }
+
+    public void ClearChanges()
+    {
+        context.ChangeTracker.Clear();
+    }
+
+    public Code? GetCode(Guid clientId)
+    {
+        Code? code = context.Codes.FirstOrDefault(code => code.ClientId == clientId);
+
+        return code;
     }
 }

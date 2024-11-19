@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using DataDomain.Persistence.AppService;
 using EntityFramework.Exceptions.PostgreSQL;
+using DataDomain.Types.ConfigTypes;
+using DataDomain.Persistence.Utilities;
+using System.Collections.Specialized;
 
 namespace DataDomain
 {
@@ -23,6 +26,12 @@ namespace DataDomain
                 options.UseNpgsql(config.GetConnectionString("PGContext"))
                 .UseExceptionProcessor());
 
+
+            SMTPConfig smtp = new SMTPConfig();
+            config.GetSection("smtp").Bind(smtp);
+            services.AddSingleton<SMTPConfig>(smtp);
+
+            services.AddScoped<MailSender, MailSender>();
             services.AddScoped<DSContext, PGContext>();
             services.AddScoped<IClientRepo, ClientRepo>();
             services.AddScoped<IAuthService, AuthService>();
