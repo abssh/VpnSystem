@@ -38,7 +38,8 @@ namespace DataDomain
                 }
 
                 //var resp2 = authService.SendActivationEmail(resp.cli.Id);
-                var resp2 = authService.ActivateEmail(resp.cli, "597154");
+                var resp2 = authService.ActivateEmail(resp.cli, "663264");
+                Console.WriteLine(resp2.state.message);
             }
 
             Console.WriteLine("end point");

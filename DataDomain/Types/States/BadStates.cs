@@ -15,10 +15,12 @@
 
         public static StateObject ClientNotFound = new StateObject(StateCode.ClientNotFound, "client was not found");
         public static StateObject CodeNotFound = new StateObject(StateCode.CodeNotFound, "code object was not found");
+        public static StateObject CodeExpired = new StateObject(StateCode.CodeExpired, "code has been expired");
 
         public static StateObject ClientAlreadyActivated = new StateObject(StateCode.ClientAlreadyActivated, "client has already been activated");
         public static StateObject WrongSMTPConfig = new StateObject(StateCode.WrongSMTPConfig, "smtp configs where wrong");
 
         public static StateObject TooFast = new StateObject(StateCode.TooFast, "action was repreformed too fast");
+
     }
 }

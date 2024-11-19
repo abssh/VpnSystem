@@ -172,6 +172,10 @@ this code expires at: {{validUntil.ToString()}} (UTC)
             return (false, BadStates.WrongCode);
         }
 
+        if (codeEnt.ValidUntil.Subtract(DateTime.UtcNow).Seconds < 0)
+        {
+            return (false, BadStates.CodeExpired);
+        }
         clientRepo.ActivateClient(cli);
 
         try

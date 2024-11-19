@@ -14,6 +14,7 @@
 
         ClientNotFound,
         CodeNotFound,
+        CodeExpired,
 
         ClientAlreadyActivated,
         WrongSMTPConfig,
