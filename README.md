@@ -8,4 +8,4 @@
 * works with postgresql
 * 3 diffrent projects (i don't even know why)
 * tried to test failed (i already lacked in the timing department)
-* all and all it got me to apreatiate how better Spring boot is 
+* all and all it got me to appreciate how better Spring boot is 
