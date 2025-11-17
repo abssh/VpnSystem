@@ -4,7 +4,7 @@
 
 
 * Just C# project that simulates bying a plan
-* payment system is just badly patched (i didn't have much time)
+* payment simulation system is just badly patched (i didn't have much time)
 * works with postgresql
 * 3 diffrent projects (i don't even know why)
 * tried to test failed (i already lacked in the timing department)
